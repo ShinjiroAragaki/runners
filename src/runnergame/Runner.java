@@ -8,11 +8,12 @@ public class Runner {
 	private int HP;
 	private int PW;
 	private Image image;
-	private static final int HEIGHT = 100;
-	private static final int WIDTH = 50;
+	private final int HEIGHT = 64;
+	private final int WIDTH = 64;
 	private int INIT_VY = 20;
 	private int vy;
 	private int y;
+	private int jumps;
 
 	
 	public Runner() throws SlickException{
@@ -25,6 +26,7 @@ public class Runner {
 		this.PW = pw;
 		image = new Image("res/run.png");
 		this.y = 0;
+		this.jumps = 0;
 	}
 
 	public void render() {
@@ -36,6 +38,7 @@ public class Runner {
 		{
 			y = 0;
 			vy = 0;
+			jumps = 0;
 		}
 		else
 		{
@@ -45,7 +48,11 @@ public class Runner {
 	}
 	
 	public void jump(){
+		if(jumps < 2)
+		{
 		y-=2;
 		vy = INIT_VY;
+		jumps += 1;
+		}
 	}
 }
