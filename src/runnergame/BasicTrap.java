@@ -5,28 +5,56 @@ import org.newdawn.slick.SlickException;
 
 public class BasicTrap {
 
-	protected float sizeX;
-	protected float sizeY;
+	protected int sizeX;
+	protected int sizeY;
 	protected Image image;
-	protected float pos_x = 500;
-	protected float pos_y = RunnerGame.GAME_HEIGHT - 30;
+	protected int pos_x;
+	protected int pos_y;
 	
 	public BasicTrap() throws SlickException
 	{
-		this.sizeX = 31;
-		this.sizeY = 33;
+		setInit();
+		getImage();
+	}
+
+	protected void setInit() {
+		sizeX = 31;
+		sizeY = 33;
+		pos_x = 500;
+		pos_y = 30;
+	}
+
+	protected void getImage() throws SlickException {
 		image = new Image("res/spike.png");
 	}
+	
 	public void render()
 	{
-		image.draw(pos_x,pos_y-sizeY);
+		image.draw(pos_x,RunnerGame.GAME_HEIGHT - pos_y - sizeY);
 	}
+	
 	public void update()
 	{
 		pos_x -= 5;
-		if(pos_x < -31)
+		if(pos_x < -200)
 		{
-			pos_x += RunnerGame.GAME_WIDTH+31;
+			pos_x += RunnerGame.GAME_WIDTH+200;
 		}
+	}
+	
+	public int getX(){
+		return pos_x;
+	}
+	
+	public int getY(){
+		return pos_y;
+	}
+	
+	public int getSizeX(){
+		return sizeX;
+	}
+	
+	public int getSizeY(){
+		return sizeY;
 	}
 }

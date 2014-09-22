@@ -1,7 +1,6 @@
 package runnergame;
 
 import org.newdawn.slick.Image;
-import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
 public class Runner {
@@ -14,6 +13,7 @@ public class Runner {
 	private int vy;
 	private int y;
 	private int jumps;
+	private int defaultX = 50;
 
 	
 	public Runner() throws SlickException{
@@ -30,7 +30,7 @@ public class Runner {
 	}
 
 	public void render() {
-		image.draw(50, RunnerGame.GAME_HEIGHT - this.HEIGHT - 30 +y);
+		image.draw( defaultX , RunnerGame.GAME_HEIGHT - HEIGHT - 30 +y);
 	}
 
 	public void update(){
@@ -55,4 +55,20 @@ public class Runner {
 		jumps += 1;
 		}
 	}
-}
+	
+	public int getX(){
+		return defaultX+(WIDTH/2);
+	}
+	
+	public int getY(){
+		return HEIGHT/2 + 30 -y;
+	}
+	
+	public int getSizeX(){
+		return WIDTH;
+	}
+	
+	public int getSizeY(){
+		return HEIGHT;
+	}
+} 

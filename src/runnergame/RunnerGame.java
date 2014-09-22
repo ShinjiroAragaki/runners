@@ -17,6 +17,7 @@ public class RunnerGame extends BasicGame{
 	private BasicTrap trap;
 	private Wall[][] walls;
 	private Input input;
+	private float invul;
 
 	public RunnerGame(String title) {
 		super(title);
@@ -50,7 +51,7 @@ public class RunnerGame extends BasicGame{
 	@Override
 	public void init(GameContainer arg0) throws SlickException {
 		player = new Runner();
-		trap = new BasicTrap();
+		trap = new FireBall();
 		walls = new Wall[4][4];
 		for(int x = 0 ; x<4 ; x++)
 		{
@@ -59,14 +60,16 @@ public class RunnerGame extends BasicGame{
 				walls[x][y] = new Wall(x*239 , y*168);
 			}
 		}
+		invul = 0;
 	}
 
 	@Override
 	public void update(GameContainer container, int arg1) throws SlickException {
+		invul -=1;
 		trap.update();
 		for(int x = 0 ; x<4 ; x++)
 		{
-			for(int y = 0; y<4 ; y++)
+			for(int y = 0; y<3 ; y++)
 			{
 				walls[x][y].update();
 			}
@@ -77,7 +80,20 @@ public class RunnerGame extends BasicGame{
 		{
 			player.jump();
 		}
-		
+		if( isCollide(player.getX(),player.getY(),player.getSizeX(),player.getSizeY(),trap.getX(),trap.getY(),trap.getSizeX(), trap.getSizeY() , invul) ){
+			System.out.print("HIT");
+			invul = 30;
+		}
+	} 
+	
+	public boolean isCollide(int x1, int y1 ,int sizex1 , int sizey1 ,int x2, int y2 ,int sizex2  , int sizey2 , float invul) throws SlickException {
+
+			float deltaX = (sizex1 + sizex2)/2;
+			float deltaY = (sizey1 + sizey2)/2;
+			if(Math.abs(x1-x2)<=deltaX && Math.abs(y1-y2)<=deltaY && invul <= 0){
+				return true;
+			}
+		return false;
 	}
 
 }
