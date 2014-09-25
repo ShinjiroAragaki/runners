@@ -18,9 +18,9 @@ public class BasicTrap {
 	}
 
 	protected void setInit() {
-		sizeX = 31;
-		sizeY = 33;
-		pos_x = 500;
+		sizeX = 64;
+		sizeY = 64;
+		pos_x = 640;
 		pos_y = 30;
 	}
 
@@ -33,13 +33,17 @@ public class BasicTrap {
 		image.draw(pos_x,RunnerGame.GAME_HEIGHT - pos_y - sizeY);
 	}
 	
-	public void update()
+	public void update(float v)
 	{
-		pos_x -= 5;
+		movement(v);
 		if(pos_x < -200)
 		{
 			pos_x += RunnerGame.GAME_WIDTH+200;
 		}
+	}
+
+	protected void movement(float v) {
+		pos_x -= v;
 	}
 	
 	public int getX(){

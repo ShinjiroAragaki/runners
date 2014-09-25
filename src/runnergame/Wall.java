@@ -18,9 +18,9 @@ public class Wall {
 	{
 		image.draw(x,y);
 	}
-	public void update()
+	public void update(float v)
 	{
-		x -= 5;
+		x -= v/2;
 		if(x<-239)
 		{
 			x+=956;
