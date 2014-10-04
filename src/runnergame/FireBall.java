@@ -22,4 +22,13 @@ public class FireBall extends BasicTrap{
 	protected void getImage() throws SlickException {
 		image = new Image("res/neofire.png");
 	}
+	
+	float angle = 0;
+	@Override
+	public void render()
+	{
+		image.setRotation(angle);
+		image.draw(pos_x,RunnerGame.GAME_HEIGHT - pos_y - sizeY);
+		angle+= 0.1;
+	}
 }
