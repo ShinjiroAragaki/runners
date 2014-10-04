@@ -44,51 +44,14 @@ public class RunnerGame extends BasicGame{
 
 	@Override
 	public void render(GameContainer arg0, Graphics arg1) throws SlickException {
-		for(int x = 0 ; x<4 ; x++)
-		{
-			for(int y = 0; y<4 ; y++)
-			{
-				walls[x][y].render();
-			}
-		}
+		renderwall();
 		player.render();
 		trap.render();
 		if(player.GameOver){
 			SplashGameOver.draw(140,140);
 		}
 	}
-
-	@Override
-	public void init(GameContainer arg0) throws SlickException {
-		player = new Runner();
-		randomTrap();
-		walls = new Wall[4][4];
-		for(int x = 0 ; x<4 ; x++)
-		{
-			for(int y = 0; y<4 ; y++)
-			{
-				walls[x][y] = new Wall(x*239 , y*168);
-			}
-		}
-		invul_frame = 0;
-		v = 8;
-		SplashGameOver = new Image("res/gameover.png");
-	}
-	protected void randomTrap() throws SlickException {
-		Random random = new Random();
-		int x = random.nextInt(3);
-		if( x==1 )
-		{
-			trap = new FireBall();
-		}
-		else if( x == 2){
-			trap = new BasicTrap();
-		}
-		else{
-			trap = new SpikeBall();
-		}
-	}
-
+	
 	@Override
 	public void update(GameContainer container, int arg1) throws SlickException {
 		input = container.getInput();
@@ -122,8 +85,58 @@ public class RunnerGame extends BasicGame{
 				randomTrap();
 			}
 		}
-
+		input = container.getInput();
+		if(player.GameOver && input.isKeyPressed(Input.KEY_R)){
+			GameStart = false;
+			container.reinit();
+		}
 	} 
+	
+	@Override
+	public void init(GameContainer arg0) throws SlickException {
+		player = new Runner();
+		randomTrap();
+		initwall();
+		invul_frame = 0;
+		v = 8;
+		SplashGameOver = new Image("res/gameover.png");
+	}
+
+	protected void initwall() throws SlickException {
+		walls = new Wall[4][4];
+		for(int x = 0 ; x<4 ; x++)
+		{
+			for(int y = 0; y<4 ; y++)
+			{
+				walls[x][y] = new Wall(x*239 , y*168);
+			}
+		}
+	}
+	
+	protected void renderwall() {
+		for(int x = 0 ; x<4 ; x++)
+		{
+			for(int y = 0; y<4 ; y++)
+			{
+				walls[x][y].render();
+			}
+		}
+	}
+	
+	protected void randomTrap() throws SlickException {
+		Random random = new Random();
+		int x = random.nextInt(3);
+		if( x==1 )
+		{
+			trap = new FireBall();
+		}
+		else if( x == 2){
+			trap = new BasicTrap();
+		}
+		else{
+			trap = new SpikeBall();
+		}
+	}
 	
 	public boolean isCollide(Runner player ,BasicTrap trap, float invul) throws SlickException {
 
