@@ -24,6 +24,7 @@ public class RunnerGame extends BasicGame{
 	private Random random;
 	private float v;
 	private Image SplashGameOver;
+	private boolean GameStart;
 
 	public RunnerGame(String title) {
 		super(title);
@@ -73,7 +74,6 @@ public class RunnerGame extends BasicGame{
 		v = 8;
 		SplashGameOver = new Image("res/gameover.png");
 	}
-
 	protected void randomTrap() throws SlickException {
 		Random random = new Random();
 		int x = random.nextInt(3);
@@ -91,7 +91,12 @@ public class RunnerGame extends BasicGame{
 
 	@Override
 	public void update(GameContainer container, int arg1) throws SlickException {
-		if(!player.GameOver)
+		input = container.getInput();
+		if(input.isKeyPressed(Input.KEY_ENTER))
+		{
+			GameStart = true;
+		}
+		if(!player.GameOver && GameStart)
 		{
 			invul_frame -=1;
 			trap.update(v);
